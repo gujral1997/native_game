@@ -1,4 +1,5 @@
 import React,{Component} from 'react';
+import {Root} from 'native-base';
 import {StyleSheet, Text, View,Dimensions,Animated,Image,ImageBackground } from 'react-native';
 import Enemy from './/Enemy';
 export default class App extends React.Component {
@@ -18,6 +19,7 @@ export default class App extends React.Component {
   }
   render() {
     return (
+      <Root>
       <ImageBackground source={require('.//assets/bg.png')} style={styles.container}>
       <View style={{flex:1,alignItems:'center',marginTop:80}}>
         <View style={styles.points}>
@@ -35,12 +37,16 @@ export default class App extends React.Component {
           {translateX:this.state.movePlayerVal}
         ]
       }}></Animated.Image>
+      <Enemy enemyImg={require('.//assets/car2.png')}
+      enemyStartposX={this.state.enemyStartposX}
+      moveEnemyVal={this.state.moveEnemyVal}/>
 
       <View style={styles.controls}>
       <Text style={styles.left} onPress={()=>this.movePlayer('left')}>{'<'}</Text>
       <Text style={styles.right} onPress={()=>this.movePlayer('right')}>{'>'}</Text>
       </View>
       </ImageBackground>
+      </Root>
     );
   }
   movePlayer(direction)

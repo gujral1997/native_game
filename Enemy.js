@@ -5,7 +5,7 @@ export default class Enemy extends React.Component {
   render() {
     return (
       <Animated.Image source={this.props.enemyImg} style={{
-         height:100,
+         height:50,
          width:100,
          position:'absolute',
          resizeMode:'stretch',
