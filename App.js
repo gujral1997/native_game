@@ -1,8 +1,8 @@
 import React,{Component} from 'react';
 import {Root} from 'native-base';
-import {StyleSheet, Text, View,Dimensions,Animated,Image,ImageBackground } from 'react-native';
+import {AppRegistry,StyleSheet, Text, View,Dimensions,Animated,Image,ImageBackground } from 'react-native';
 import Enemy from './/Enemy';
-export default class App extends React.Component {
+export default class App extends Component {
   constructor(props)
   {
     super(props);
@@ -74,6 +74,14 @@ export default class App extends React.Component {
       ).start();
     }
   }
+  componentDidMount()
+  {
+    this.animateEnemy();
+  }
+  animateEnemy()
+  {
+    this.state.moveEnemyval.setValue(-100);
+  }
 }
 
 const styles = StyleSheet.create({
@@ -113,3 +121,4 @@ const styles = StyleSheet.create({
     textAlign:'right'
   }
 });
+AppRegistry.registerComponent('game1', () => App);
