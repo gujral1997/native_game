@@ -11,9 +11,9 @@ export default class Enemy extends React.Component {
          resizeMode:'stretch',
          left:this.props.enemyStartposX,
          transform:[
-           {translateY:this.props.moveEnemyVal},
+        {translateY:this.props.moveEnemyVal},
          ]
-       }}></Animated.Image>
+      }}></Animated.Image>
     );
   }
 }

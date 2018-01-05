@@ -20,30 +20,30 @@ export default class App extends Component {
     return (
 
       <ImageBackground source={require('./assets/bg.png')} style={styles.container}>
-      <View style={{flex:1,alignItems:'center',marginTop:80}}>
-        <View style={styles.points}>
-          <Text style={{fontWeight:'bold',fontSize:40}}>{this.state.points}</Text>
+        <View style={{flex:1,alignItems:'center',marginTop:80}}>
+          <View style={styles.points}>
+            <Text style={{fontWeight:'bold',fontSize:40}}>{this.state.points}</Text>
+          </View>
         </View>
-      </View>
-     <Animated.Image source={require('./assets/car.png')} style={{
-        height:100,
-        width:100,
-        position:'absolute',
-        zIndex:1,
-        bottom:50,
-        resizeMode:'stretch',
-        transform:[
+        <Animated.Image source={require('./assets/car.png')} style={{
+          height:100,
+          width:100,
+          position:'absolute',
+          zIndex:1,
+          bottom:50,
+          resizeMode:'stretch',
+          transform:[
           {translateX:this.state.movePlayerVal}
-        ]
-      }}></Animated.Image>
-      <Enemy enemyImg={require('.//assets/car2.png')}
-      enemyStartposX={this.state.enemyStartposX}
-      moveEnemyVal={this.state.moveEnemyVal}/>
+          ]
+        }}></Animated.Image>
+        <Enemy enemyImg={require('.//assets/car2.png')}
+          enemyStartposX={this.state.enemyStartposX}
+          moveEnemyVal={this.state.moveEnemyVal}/>
 
-      <View style={styles.controls}>
-      <Text style={styles.left} onPress={()=>this.movePlayer('left')}>{'<'}</Text>
-      <Text style={styles.right} onPress={()=>this.movePlayer('right')}>{'>'}</Text>
-      </View>
+        <View style={styles.controls}>
+          <Text style={styles.left} onPress={()=>this.movePlayer('left')}>{'<'}</Text>
+          <Text style={styles.right} onPress={()=>this.movePlayer('right')}>{'>'}</Text>
+        </View>
       </ImageBackground>
 
     );
