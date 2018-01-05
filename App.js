@@ -1,7 +1,6 @@
 import React,{Component} from 'react';
-import {Root} from 'native-base';
 import {AppRegistry,StyleSheet, Text, View,Dimensions,Animated,Image,ImageBackground } from 'react-native';
-import Enemy from './/Enemy';
+import Enemy from './Enemy';
 export default class App extends Component {
   constructor(props)
   {
@@ -15,18 +14,18 @@ export default class App extends Component {
       enemySide:'left',
       enemySpeed:4200,
       gameOver:false,
-    };
+    }
   }
   render() {
     return (
-      <Root>
-      <ImageBackground source={require('.//assets/bg.png')} style={styles.container}>
+
+      <ImageBackground source={require('./assets/bg.png')} style={styles.container}>
       <View style={{flex:1,alignItems:'center',marginTop:80}}>
         <View style={styles.points}>
           <Text style={{fontWeight:'bold',fontSize:40}}>{this.state.points}</Text>
         </View>
       </View>
-     <Animated.Image source={require('.//assets/car.png')} style={{
+     <Animated.Image source={require('./assets/car.png')} style={{
         height:100,
         width:100,
         position:'absolute',
@@ -46,7 +45,7 @@ export default class App extends Component {
       <Text style={styles.right} onPress={()=>this.movePlayer('right')}>{'>'}</Text>
       </View>
       </ImageBackground>
-      </Root>
+
     );
   }
   movePlayer(direction)
@@ -80,8 +79,58 @@ export default class App extends Component {
   }
   animateEnemy()
   {
-    this.state.moveEnemyval.setValue(-100);
+   //this.moveEnemyval.setValue(-100);
+    var windowH=Dimensions.get('window').height;
+    var r=Math.floor(Math.random()*2)+1;
+    if(r==2)
+    {
+      r=40;
+      this.setState({enemySide:'left'});
+    }
+    else
+      {
+        r=Dimensions.get('window').width-140;
+        this.setState({enemySide:'right'});
+      }
+      this.setState({enemyStartposX:r});
+      var refreshIntervalid;
+      refreshIntervalid=setInterval(()=>
+    {
+      if(this.state.moveEnemyVal._value>windowH-280
+        &&this.state.moveEnemyVal._value<windowH-180
+      &&this.state.moveEnemyVal._value==this.state.enemySide)
+      {
+        clearInterval(refreshIntervalid);
+        this.setState({gameOver:true});
+        this.gameOver();l
+      }
+    },50);
+    //Increent Enemy speed each 20th second
+    setInterval(()=>
+  {
+    this.setState({enemySpeed:this.state.enemySpeed-50})
+  },20000);
+  //Animate the enemy
+  Animated.timing(
+    this.state.moveEnemyVal,
+    {
+      toValue:Dimensions.get('window').height,
+      duration:this.state.enemySpeed,
+    }
+
+  ).start(event=>
+    //if no collison occurs
+  {
+    if(event.finished&&this.state.gameOver==false)
+    {
+      clearInterval(refreshIntervalid);
+      this.setState({points:++this.state.points})
+      this.animateEnemy();
+    }
+  });
+
   }
+
 }
 
 const styles = StyleSheet.create({
